@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fgo23/internals/minitask"
 	"fmt"
 	"time"
 )
@@ -108,22 +107,25 @@ func main() {
 	person3["umur"] = "120"
 	fmt.Println(person3)
 	printSegitiga(10)
+	printSegitigaRecursive(1, 10)
 	result, err := getMovies()
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
 		fmt.Println(result)
 	}
-	srcTemp := float32(300)
-	srcUnit := "K"
-	destUnit := "R"
-	tempResult, err := minitask.TempConversion(srcTemp, srcUnit, destUnit)
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Printf("Konversi suhu %f dari %s ke %s adalah %f\n", srcTemp, srcUnit, destUnit, tempResult)
-	}
-	fmt.Printf("hasil %d", minitask.MaxValueArray([5]uint{10, 5, 17, 90, 69}))
+	fmt.Println(printFibo(30))
+	fmt.Println(printFiboRecursive([]uint{0, 1}, 30))
+	// srcTemp := float32(300)
+	// srcUnit := "K"
+	// destUnit := "R"
+	// tempResult, err := minitask.TempConversion(srcTemp, srcUnit, destUnit)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// } else {
+	// 	fmt.Printf("Konversi suhu %f dari %s ke %s adalah %f\n", srcTemp, srcUnit, destUnit, tempResult)
+	// }
+	// fmt.Printf("hasil %d", minitask.MaxValueArray([5]uint{10, 5, 17, 90, 69}))
 }
 
 func printSegitiga(s int) {
@@ -142,6 +144,22 @@ func printSegitiga(s int) {
 	// END varian for loop
 }
 
+func printSegitigaRecursive(i, s int) {
+	if i > s {
+		return
+	}
+	row := printSegitigaRowRecursive(0, i)
+	fmt.Println(row)
+	printSegitigaRecursive(i+1, s)
+}
+
+func printSegitigaRowRecursive(j, i int) string {
+	if j >= i {
+		return ""
+	}
+	return "*" + printSegitigaRowRecursive(j+1, i)
+}
+
 func getMovies() ([]string, error) {
 	movies := []string{"Minecraft", "Frozen", "John Wick"}
 	isSuccess := true
@@ -150,4 +168,32 @@ func getMovies() ([]string, error) {
 		return movies, nil
 	}
 	return nil, errors.New("internal server error")
+}
+
+func printFibo(max uint) []uint {
+	seq := []uint{0, 1}
+	seqLen := len(seq)
+	// index n
+	// index n-1 + index n-2
+	for {
+		nextSeq := seq[seqLen-1] + seq[seqLen-2]
+		if nextSeq > max {
+			break
+		}
+		seq = append(seq, nextSeq)
+		seqLen = len(seq)
+	}
+	return seq
+}
+
+func printFiboRecursive(seq []uint, max uint) []uint {
+	seqLen := len(seq)
+	nextSeq := seq[seqLen-1] + seq[seqLen-2]
+	if nextSeq > max {
+		return seq
+	} else if nextSeq == max {
+		return append(seq, nextSeq)
+	}
+	newSeq := append(seq, nextSeq)
+	return printFiboRecursive(newSeq, max)
 }
