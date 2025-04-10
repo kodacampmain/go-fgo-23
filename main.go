@@ -2,13 +2,17 @@ package main
 
 import (
 	"errors"
+	"fgo23/internals/models"
 	"fmt"
+	"os"
 	"time"
 )
 
 // var globals string
 
 func main() {
+	defer fmt.Println("Program Selesai")
+	fmt.Println("Program Mulai")
 	// fl := true
 	// uid := uuid.NewString()
 	// uid = ""
@@ -90,32 +94,34 @@ func main() {
 	// var empty []int
 	// fmt.Println(empty)
 
-	var person = map[string]string{}
-	person["name"] = "Iman"
-	person["umur"] = "40"
+	// var person = map[string]string{}
+	// person["name"] = "Iman"
+	// person["umur"] = "40"
 
-	fmt.Println(person)
+	// fmt.Println(person)
 
-	person2 := map[string]string{
-		"name": "Sandi",
-		"umur": "5",
-	}
-	fmt.Println(person2)
+	// person2 := map[string]string{
+	// 	"name": "Sandi",
+	// 	"umur": "5",
+	// }
+	// fmt.Println(person2)
 
-	person3 := make(map[string]string)
-	person3["name"] = "Hakim"
-	person3["umur"] = "120"
-	fmt.Println(person3)
-	printSegitiga(10)
-	printSegitigaRecursive(1, 10)
+	// person3 := make(map[string]string)
+	// person3["name"] = "Hakim"
+	// person3["umur"] = "120"
+	// fmt.Println(person3)
+	// printSegitiga(10)
+	// printSegitigaRecursive(1, 10)
 	result, err := getMovies()
 	if err != nil {
 		fmt.Println(err.Error())
+		os.Exit(1)
 	} else {
 		fmt.Println(result)
 	}
 	fmt.Println(printFibo(30))
 	fmt.Println(printFiboRecursive([]uint{0, 1}, 30))
+	// pointer.ShowPointer()
 	// srcTemp := float32(300)
 	// srcUnit := "K"
 	// destUnit := "R"
@@ -126,39 +132,48 @@ func main() {
 	// 	fmt.Printf("Konversi suhu %f dari %s ke %s adalah %f\n", srcTemp, srcUnit, destUnit, tempResult)
 	// }
 	// fmt.Printf("hasil %d", minitask.MaxValueArray([5]uint{10, 5, 17, 90, 69}))
+	// var spiderman models.Movie
+	spiderman := models.NewMovie("Spiderman", "spiderman.jpg", []string{"Tom Holland", "Zendaya"}, []string{"Action", "Romance", "Drama"}, 120, 50000)
+	fmt.Println(spiderman.GetMovieTitle())
+	fmt.Println(spiderman.GetMoviePrice())
+	spiderman.ChangePrice(20000)
+	fmt.Println(spiderman.GetMoviePrice())
+
+	printSound(models.Car{})
+	printSound(models.Cat{})
 }
 
-func printSegitiga(s int) {
-	// varian for loop
-	for i := 1; i <= s; i++ {
-		var row string
-		// varian while loop
-		j := 0
-		for j < i {
-			row += "*"
-			j++
-		}
-		// END varian while loop
-		fmt.Println(row)
-	}
-	// END varian for loop
-}
+// func printSegitiga(s int) {
+// 	// varian for loop
+// 	for i := 1; i <= s; i++ {
+// 		var row string
+// 		// varian while loop
+// 		j := 0
+// 		for j < i {
+// 			row += "*"
+// 			j++
+// 		}
+// 		// END varian while loop
+// 		fmt.Println(row)
+// 	}
+// 	// END varian for loop
+// }
 
-func printSegitigaRecursive(i, s int) {
-	if i > s {
-		return
-	}
-	row := printSegitigaRowRecursive(0, i)
-	fmt.Println(row)
-	printSegitigaRecursive(i+1, s)
-}
+// func printSegitigaRecursive(i, s int) {
+// 	if i > s {
+// 		return
+// 	}
+// 	row := printSegitigaRowRecursive(0, i)
+// 	fmt.Println(row)
+// 	printSegitigaRecursive(i+1, s)
+// }
 
-func printSegitigaRowRecursive(j, i int) string {
-	if j >= i {
-		return ""
-	}
-	return "*" + printSegitigaRowRecursive(j+1, i)
-}
+// func printSegitigaRowRecursive(j, i int) string {
+// 	if j >= i {
+// 		return ""
+// 	}
+// 	return "*" + printSegitigaRowRecursive(j+1, i)
+// }
 
 func getMovies() ([]string, error) {
 	movies := []string{"Minecraft", "Frozen", "John Wick"}
@@ -197,3 +212,16 @@ func printFiboRecursive(seq []uint, max uint) []uint {
 	newSeq := append(seq, nextSeq)
 	return printFiboRecursive(newSeq, max)
 }
+
+type sesuatuYangBersuara interface {
+	Sound()
+	Attack()
+}
+
+func printSound(t sesuatuYangBersuara) {
+	t.Sound()
+}
+
+// func printCatSound(t sesuatuYangBersuara) {
+// 	t.Sound()
+// }
