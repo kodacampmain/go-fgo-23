@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fgo23/internals/minitask"
 	"fmt"
 	"time"
 )
@@ -113,6 +114,16 @@ func main() {
 	} else {
 		fmt.Println(result)
 	}
+	srcTemp := float32(300)
+	srcUnit := "K"
+	destUnit := "R"
+	tempResult, err := minitask.TempConversion(srcTemp, srcUnit, destUnit)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Printf("Konversi suhu %f dari %s ke %s adalah %f\n", srcTemp, srcUnit, destUnit, tempResult)
+	}
+	fmt.Printf("hasil %d", minitask.MaxValueArray([5]uint{10, 5, 17, 90, 69}))
 }
 
 func printSegitiga(s int) {
