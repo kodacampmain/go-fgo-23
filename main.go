@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fgo23/internals/minitask"
 	"fgo23/internals/models"
 	"fmt"
 	"os"
@@ -141,6 +142,29 @@ func main() {
 
 	printSound(models.Car{})
 	printSound(models.Cat{})
+
+	// var score = [5]int{70, 80, 65, 90, 100}
+
+	// fmt.Println(minitask.SumArray(score))
+	// fmt.Println(minitask.SumArrayRecursive(score, 0))
+	age := 10
+	// fmt.Println(age)
+	minitask.ChangeNum(&age, 17)
+	// fmt.Println(age)
+	// man := &minitask.Person{
+	// 	Name:    "",
+	// 	Address: "",
+	// 	Phone:   "",
+	// }
+
+	manusia := minitask.NewPerson("Fazztrack", "Legenda Wisata", "08123456789")
+	fmt.Println(manusia.PrintPersonInfo())
+	manusia.GreetPerson()
+	manusia.EditName("Koda")
+	manusia.GreetPerson()
+
+	conStr := minitask.GeneratePgConnString(minitask.DBConfig{User: "fakhridho", DbName: "movies"})
+	fmt.Println(conStr)
 }
 
 // func printSegitiga(s int) {

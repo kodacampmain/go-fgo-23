@@ -20,12 +20,12 @@ import (
 // }
 
 func FakeLogin(email, password string) (bool, error) {
-	userEmail := "mail@mail.com"
-	userPass := "abcdefgh"
-	if email != userEmail {
+	// userEmail := "mail@mail.com"
+	// userPass := "abcdefgh"
+	if email != adminEmail {
 		return false, errors.New("email/password salah")
 	}
-	if password != userPass {
+	if password != adminPassword {
 		return false, errors.New("email/password salah")
 	}
 	return true, nil
