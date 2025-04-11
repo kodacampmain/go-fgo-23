@@ -1,0 +1,15 @@
+concurrency vs parallelism
+parallelism
+- doing many tasks simultaneously
+- happens on at least two processors
+- executed simultaneously by leveraging multiple processors or CPU cores
+- running at the same time on separate processing units
+- scientific computing, data processing, and multimedia applications
+
+concurrency
+- handling many tasks together in singular processor
+- progress on multiple tasks at the same time, without necessarily running them in true parallel
+- switch between tasks so quickly that it appears as if they are running simultaneously
+- more efficient resource utilization and responsiveness in applications
+- operating system, managing numerous client requests in a server, or 
+running multiple threads or goroutines
